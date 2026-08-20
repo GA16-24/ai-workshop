@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="format-detection" content="telephone=no">
+<meta property="og:title" content="AI 小工具入门课｜从「帮我写」到「帮我造」">
+<meta property="og:description" content="8月26日 周三 10:00-11:30 线上公开课。让 AI 给你造一个小工具，把每周都要干一遍的那件事，变成点一下就完成。">
+<meta property="og:type" content="website">
+<title>从帮我写到帮我造</title>
+<style>
+:root{
+  --paper:#f6f6f3; --surface:#ffffff; --ink:#14171a; --ink-2:#4e555c; --ink-3:#878e95;
+  --line:#e3e5e2; --indigo:#1e3a5f; --indigo-soft:#e9eef4; --mark:#f0c544; --mark-ink:#14171a;
+  --hero-bg:#1b3452; --hero-ink:#f4f6f8; --hero-dim:#9db3c9; --hero-line:#2e4a6b;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#101315; --surface:#171b1e; --ink:#e8eae6; --ink-2:#a5abae; --ink-3:#737a7e;
+    --line:#262b2e; --indigo:#8fb4dc; --indigo-soft:#182531; --mark:#dfb83d; --mark-ink:#14171a;
+    --hero-bg:#15283f; --hero-ink:#eef2f6; --hero-dim:#8ea6bd; --hero-line:#26405c;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#101315; --surface:#171b1e; --ink:#e8eae6; --ink-2:#a5abae; --ink-3:#737a7e;
+  --line:#262b2e; --indigo:#8fb4dc; --indigo-soft:#182531; --mark:#dfb83d; --mark-ink:#14171a;
+  --hero-bg:#15283f; --hero-ink:#eef2f6; --hero-dim:#8ea6bd; --hero-line:#26405c;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:system-ui,-apple-system,"PingFang SC","HarmonyOS Sans SC","Microsoft YaHei","Noto Sans CJK SC","Source Han Sans SC",sans-serif;
+  font-size:16px; line-height:1.85; -webkit-font-smoothing:antialiased;
+  text-size-adjust:100%; -webkit-text-size-adjust:100%;
+}
+.page{max-width:40rem;margin:0 auto;background:var(--surface);min-height:100vh}
+@media(min-width:44rem){.page{margin:2.5rem auto;min-height:0;border:1px solid var(--line);border-radius:2px}}
+
+/* ── hero ── */
+.hero{background:var(--hero-bg);color:var(--hero-ink);padding:2.75rem 1.5rem 2rem}
+.eyebrow{
+  font-size:.75rem;letter-spacing:.22em;color:var(--hero-dim);
+  margin:0 0 1.4rem;font-weight:500;
+}
+h1{
+  font-size:clamp(1.85rem,7vw,2.5rem);line-height:1.3;font-weight:700;
+  margin:0 0 1rem;letter-spacing:.01em;text-wrap:balance;
+}
+h1 .q{color:var(--mark)}
+.hook{margin:0;color:var(--hero-dim);font-size:1rem;line-height:1.8;max-width:30rem}
+.hook mark{background:var(--mark);color:var(--mark-ink);padding:.05em .25em;border-radius:2px}
+
+.facts{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:1px;
+  margin:2rem -1.5rem -2rem;background:var(--hero-line);
+  border-top:1px solid var(--hero-line);
+}
+@media(min-width:34rem){.facts{grid-template-columns:repeat(4,1fr)}}
+.fact{background:var(--hero-bg);padding:.95rem 1.5rem 1.1rem}
+@media(min-width:34rem){.fact{padding:.95rem 1rem 1.1rem}}
+.fact dt{font-size:.7rem;letter-spacing:.16em;color:var(--hero-dim);margin:0 0 .3rem}
+.fact dd{margin:0;font-size:1rem;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.4}
+.fact dd small{display:block;font-size:.75rem;font-weight:400;color:var(--hero-dim);letter-spacing:.02em}
+
+/* ── body ── */
+.body{padding:2.5rem 1.5rem 3rem}
+section+section{margin-top:2.75rem}
+h2{
+  font-size:.8rem;letter-spacing:.18em;font-weight:600;color:var(--ink-3);
+  margin:0 0 1.1rem;padding-bottom:.6rem;border-bottom:1px solid var(--line);
+}
+p{margin:0 0 1rem;color:var(--ink-2)}
+p:last-child{margin-bottom:0}
+p mark{background:var(--mark);color:var(--mark-ink);padding:.05em .2em;border-radius:2px}
+strong{color:var(--ink);font-weight:600}
+.audience{
+  background:var(--indigo-soft);border-radius:2px;padding:.9rem 1.1rem;
+  font-size:.925rem;color:var(--ink-2);line-height:1.75;
+}
+.audience b{color:var(--indigo);font-weight:600}
+
+/* ── steps ── */
+.steps{list-style:none;margin:0;padding:0;position:relative}
+.steps::before{
+  content:"";position:absolute;left:.9rem;top:.6rem;bottom:2.4rem;
+  width:1px;background:var(--line);
+}
+.step{position:relative;padding:0 0 1.4rem 3rem}
+.step:last-child{padding-bottom:0}
+.num{
+  position:absolute;left:0;top:-.1rem;width:1.8rem;height:1.8rem;border-radius:50%;
+  background:var(--indigo);color:var(--surface);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.8rem;font-weight:700;font-variant-numeric:tabular-nums;
+}
+.step:last-child .num{background:var(--mark);color:var(--mark-ink)}
+.step h3{margin:0 0 .3rem;font-size:1.0625rem;font-weight:600;line-height:1.5}
+.step p{margin:0;font-size:.925rem;line-height:1.75}
+.yield{
+  display:inline-block;margin-top:.7rem;font-size:.75rem;letter-spacing:.02em;
+  color:var(--ink-3);border:1px solid var(--line);border-radius:999px;padding:.2rem .7rem;
+}
+.yield b{color:var(--indigo);font-weight:600}
+
+.chain{
+  margin-top:1.6rem;padding:1rem 1.15rem;border-left:2px solid var(--mark);
+  background:var(--indigo-soft);font-size:.925rem;color:var(--ink-2);line-height:1.8;
+}
+.chain b{color:var(--ink)}
+
+/* ── prep / signup ── */
+.prep{list-style:none;margin:0;padding:0;display:grid;gap:.7rem}
+.prep li{
+  padding-left:1.4rem;position:relative;color:var(--ink-2);font-size:.95rem;line-height:1.75;
+}
+.prep li::before{
+  content:"";position:absolute;left:0;top:.72em;width:.5rem;height:.5rem;
+  border-radius:50%;background:var(--indigo);
+}
+.signup{
+  margin-top:2.75rem;border:1px dashed var(--line);border-radius:2px;
+  padding:1.5rem;text-align:center;
+}
+.signup .lab{font-size:.75rem;letter-spacing:.18em;color:var(--ink-3);margin:0 0 .6rem}
+.signup p{margin:0;font-size:.95rem}
+footer{
+  margin-top:2.5rem;padding-top:1.4rem;border-top:1px solid var(--line);
+  font-size:.875rem;color:var(--ink-3);line-height:1.8;
+}
+@media(prefers-reduced-motion:no-preference){
+  .hero,.body>section{animation:rise .5s ease backwards}
+  .body>section:nth-child(1){animation-delay:.05s}
+  .body>section:nth-child(2){animation-delay:.1s}
+  .body>section:nth-child(3){animation-delay:.15s}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="hero">
+    <p class="eyebrow">线上公开课</p>
+    <h1>从<span class="q">「帮我写」</span><br>到<span class="q">「帮我造」</span></h1>
+    <p class="hook">大部分人用 AI 停在"帮我写点东西"。这堂课往下走一层：<mark>让 AI 给你造一个小工具</mark>，把每周都要干一遍的那件事，变成点一下就完成。</p>
+    <dl class="facts">
+      <div class="fact"><dt>日期</dt><dd>8月26日<small>周三</small></dd></div>
+      <div class="fact"><dt>时间</dt><dd>10:00<small>至 11:30</small></dd></div>
+      <div class="fact"><dt>形式</dt><dd>线上<small>可跟着做</small></dd></div>
+      <div class="fact"><dt>时长</dt><dd>90<small>分钟</small></dd></div>
+    </dl>
+  </header>
+
+  <div class="body">
+
+    <section>
+      <h2>为什么开这门课</h2>
+      <p>写周报、润色邮件、总结文档，这些都有用，但天花板很低，说到底就是打字快了一点。而且它是一次性的，这周问完，下周同样的活还得从头再问一遍。</p>
+      <p>以前做不了自己的小工具，不是技术问题，是成本问题。一个只有两三个人会用的小功能，走不通立项和排期。<strong>现在这个限制基本没了</strong>，不用会写代码，把话说清楚就行。</p>
+      <p class="audience"><b>适合谁</b>：运营、行政、HR，以及所有每周都要重复做同一件事的人。不需要任何编程基础。</p>
+    </section>
+
+    <section>
+      <h2>课上讲什么</h2>
+      <ol class="steps">
+
+        <li class="step">
+          <span class="num">1</span>
+          <h3>先学会开口</h3>
+          <p>不用背提示词模板。让 AI 反过来问你问题，把需求问清楚，提示词它自己写。</p>
+          <span class="yield">产出 <b>一段真正能用的提示词</b></span>
+        </li>
+
+        <li class="step">
+          <span class="num">2</span>
+          <h3>让东西进来</h3>
+          <p>拍照、截图直接变成数据。纸质单据、手写表格，还有那些没有导出按钮的老系统，截个图就能变表格。</p>
+          <span class="yield">产出 <b>一堆能处理的原始数据</b></span>
+        </li>
+
+        <li class="step">
+          <span class="num">3</span>
+          <h3>让东西归位</h3>
+          <p>AI 读文件里的内容，按公司的命名规则自动改名归档。执行之前先出一张新旧对照表，你过一眼再动手，不会乱改文件。</p>
+          <span class="yield">产出 <b>一个命名规范的文件夹</b></span>
+        </li>
+
+        <li class="step">
+          <span class="num">4</span>
+          <h3>让东西成表</h3>
+          <p>几十份格式各不相同的简历或合同，汇总成一张表。每个字段都标出原文出处，方便核对，也防止它瞎编。</p>
+          <span class="yield">产出 <b>一张带出处的表</b></span>
+        </li>
+
+        <li class="step">
+          <span class="num">5</span>
+          <h3>让东西能查</h3>
+          <p>把文件夹交给 AI 管，问它某份文件在哪、哪几份文件提过某件事。它还能告诉你什么是缺的。</p>
+          <span class="yield">产出 <b>一个问得动的资料库</b></span>
+        </li>
+
+        <li class="step">
+          <span class="num">6</span>
+          <h3>把重复动作变成工具</h3>
+          <p>做出一个 .html 文件，发给同事双击就能打开。不用装软件，也不用走 IT 流程。</p>
+          <span class="yield">产出 <b>一个能发给同事的小工具</b></span>
+        </li>
+
+      </ol>
+      <p class="chain">六步是一条线，<b>前一步的产出就是后一步的原料</b>。课上会拿同一堆乱七八糟的扫描件，从第 1 步一路做到第 6 步，现场操作，不是放录屏。</p>
+    </section>
+
+    <section>
+      <h2>还会讲清楚边界</h2>
+      <p>哪些活可以交给 AI，哪些不行。涉及个人信息的材料该怎么处理，以及为什么<strong>关于人的决定不能交给它</strong>。这部分十分钟，但比前面六步更重要。</p>
+    </section>
+
+    <section>
+      <h2>你会带走什么</h2>
+      <p>一套能照着做的方法，还有一个用来挑第一个工具的判断标准：</p>
+      <ul class="prep">
+        <li>每周都要干</li>
+        <li>每次花二十到九十分钟</li>
+        <li>结果一眼能看出对错</li>
+        <li>材料你手上已经有</li>
+      </ul>
+      <p style="margin-top:1rem">四条都占，才值得动手做成工具。</p>
+    </section>
+
+    <section>
+      <h2>需要准备什么</h2>
+      <ul class="prep">
+        <li>一台电脑，一个能用的 AI 账号</li>
+        <li>想收获更大的话，提前想好一件你每周都要重复做、做完却毫无成就感的事，课上直接拿它练手</li>
+      </ul>
+    </section>
+
+    <div class="signup">
+      <p class="lab">报名方式</p>
+      <p>【此处填入会议链接 / 报名接龙】</p>
+    </div>
+
+    <footer>课前有问题，群里直接问我。课上最后留了时间答疑。</footer>
+
+  </div>
+</div>
+</body>
+</html>
